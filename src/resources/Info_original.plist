@@ -8,9 +8,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>Updater</string>
+	<string>Mendeley Updater</string>
 	<key>CFBundleIconFile</key>
-	<string>Updater.icns</string>
+	<string>Mendeley Updater.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.mendeley.MendeleyUpdater</string>
 	<key>CFBundleInfoDictionaryVersion</key>

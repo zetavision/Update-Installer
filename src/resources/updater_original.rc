@@ -20,7 +20,7 @@ BEGIN
                         VALUE "FileDescription", "Software Update Tool"
                         VALUE "CompanyName", "Mendeley Ltd."
                         VALUE "LegalCopyright", "(C) Mendeley Ltd. 2011"
-                        VALUE "ProductName", "Updater"
+                        VALUE "ProductName", "Mendeley Software Updater"
                         VALUE "PrivateBuild", "Built by Robert Knight"
                 END
         END
