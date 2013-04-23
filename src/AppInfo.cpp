@@ -16,8 +16,10 @@ std::string AppInfo::updateErrorMessage(const std::string& details)
 {
 	std::string result = "There was a problem installing the update:\n\n";
 	result += details;
-	result += "\n\nYou can try downloading and installing the latest version of "
-	          "Mendeley Desktop from http://www.mendeley.com/download-mendeley-desktop";
+	// result += "\n\nYou can try downloading and installing the latest version of "
+	//           "Mendeley Desktop from http://www.mendeley.com/download-mendeley-desktop";
+    result += "\n\nYou can try downloading and installing the latest version of "
+              "Mendeley Desktop from the homepage of the software";
 	return result;
 }
 
