@@ -3,7 +3,7 @@
 		// a single package which contains all files for the application
 		"app" : [
 			".*"
-		],
+		]
 	},
 	
 	// the name of the updater binary - this will be listed as
