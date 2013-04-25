@@ -297,19 +297,60 @@ std::string FileUtils::fileName(const char* path)
 	free(pathCopy);
 	return basename;
 #else
-	char baseName[MAX_PATH];
-	char extension[MAX_PATH];
-	_splitpath_s(path,
-	  0, /* drive */
-	  0, /* drive length */
-	  0, /* dir */
-	  0, /* dir length */
-	  baseName,
-	  MAX_PATH, /* baseName length */
-	  extension,
-	  MAX_PATH /* extension length */
-	  );
-	return std::string(baseName) + std::string(extension);
+	std::string filePath = path;
+    size_t extDotPos = filePath.find_last_of('.');
+    size_t lastSlash = filePath.find_last_of("/\\");
+//	size_t firstSlash = filePath.find_first_of("/\\");
+    size_t firstColon = filePath.find_first_of(':');
+
+    std::string drive = "";
+    std::string folder = "";
+    std::string filename = "";
+    std::string fileExt = "";
+
+    if (firstColon != std::string::npos)
+    {
+        drive = filePath.substr(0, firstColon+1);
+    }
+
+    if (lastSlash != std::string::npos)
+    {
+        if (firstColon != std::string::npos)
+            folder = filePath.substr(firstColon+1, (lastSlash - firstColon));
+        else
+            folder = filePath.substr(0, lastSlash + 1);
+    }
+
+    if (extDotPos != std::string::npos)
+    {
+        if (lastSlash != std::string::npos)
+            filename = filePath.substr(lastSlash+1, extDotPos - lastSlash - 1);
+        else
+            filename = filePath.substr(0, extDotPos);
+
+        fileExt = filePath.substr(extDotPos);
+    }
+    else
+    {
+        if (lastSlash != std::string::npos)
+            filename = filePath.substr(lastSlash+1);
+        else
+            filename = filePath.substr(0);
+    }
+	// char baseName[MAX_PATH];
+	// char extension[MAX_PATH];
+	// _splitpath_s(path,
+	//  0, /* drive */
+	//  0, /* drive length */
+	//  0, /* dir */
+	//  0, /* dir length */
+	//  baseName,
+	//  MAX_PATH, /* baseName length */
+	//  extension,
+	//  MAX_PATH /* extension length */
+	//  );
+	// return std::string(baseName) + std::string(extension);
+	return filename+fileExt;
 #endif
 }
 
@@ -321,26 +362,66 @@ std::string FileUtils::dirname(const char* path)
 	free(pathCopy);
 	return dirname;
 #else
-	char drive[3];
-	char dir[MAX_PATH];
+	std::string filePath = path;
+    size_t extDotPos = filePath.find_last_of('.');
+    size_t lastSlash = filePath.find_last_of("/\\");
+//	size_t firstSlash = filePath.find_first_of("/\\");
+    size_t firstColon = filePath.find_first_of(':');
 
-	_splitpath_s(path,
-	  drive, /* drive */ 
-	  3, /* drive length */
-	  dir,
-	  MAX_PATH, /* dir length */
-	  0, /* filename */
-	  0, /* filename length */
-	  0, /* extension */
-	  0  /* extension length */
-	);
+    std::string drive = "";
+    std::string folder = "";
+    std::string filename = "";
+    std::string fileExt = "";
+
+    if (firstColon != std::string::npos)
+    {
+        drive = filePath.substr(0, firstColon+1);
+    }
+
+    if (lastSlash != std::string::npos)
+    {
+        if (firstColon != std::string::npos)
+            folder = filePath.substr(firstColon+1, (lastSlash - firstColon));
+        else
+            folder = filePath.substr(0, lastSlash + 1);
+    }
+
+    if (extDotPos != std::string::npos)
+    {
+        if (lastSlash != std::string::npos)
+            filename = filePath.substr(lastSlash+1, extDotPos - lastSlash - 1);
+        else
+            filename = filePath.substr(0, extDotPos);
+
+        fileExt = filePath.substr(extDotPos);
+    }
+    else
+    {
+        if (lastSlash != std::string::npos)
+            filename = filePath.substr(lastSlash+1);
+        else
+            filename = filePath.substr(0);
+    }
+	//char drive[3];
+	//char dir[MAX_PATH];
+
+	//_splitpath_s(path,
+	//  drive, /* drive */ 
+	//  3, /* drive length */
+	//  dir,
+	//  MAX_PATH, /* dir length */
+	//  0, /* filename */
+	//  0, /* filename length */
+	//  0, /* extension */
+	//  0  /* extension length */
+	//);
 
 	std::string result;
-	if (drive[0])
+	if (drive.size() > 0)
 	{
-		result += std::string(drive);
+		result += (drive);
 	}
-	result += dir;
+	result += folder;
 
 	return result;
 #endif
